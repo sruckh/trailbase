@@ -15,3 +15,16 @@ dist/
 # Avoid `pnpm-lock.yaml` files when not in the root. They are produced when
 # building with `--ignore-worspace`.
 **/pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.*
+!.env*.example
+
+# Docker volumes
+traildepot/
+
+# Local configuration
+config.local.*
+*.local.*
+

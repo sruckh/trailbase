@@ -146,25 +146,50 @@ server {
 
 ## Management Commands
 
+### Quick Management Script
+```bash
+# Start TrailBase
+./manage-trailbase.sh start
+
+# Stop TrailBase
+./manage-trailbase.sh stop
+
+# Restart TrailBase
+./manage-trailbase.sh restart
+
+# Check status
+./manage-trailbase.sh status
+
+# View logs (follow)
+./manage-trailbase.sh logs -f
+
+# Create backup
+./manage-trailbase.sh backup
+
+# Full shutdown with cleanup
+./shutdown-shared-net.sh
+```
+
+### Manual Commands
 ```bash
 # Start services
-docker-compose -f docker-compose.shared-net.yml up -d
+docker compose -f docker-compose.shared-net.yml up -d
 
 # Stop services
-docker-compose -f docker-compose.shared-net.yml down
+docker compose -f docker-compose.shared-net.yml down
 
 # View logs
-docker-compose -f docker-compose.shared-net.yml logs -f trail
+docker compose -f docker-compose.shared-net.yml logs -f trail
 
 # Restart service
-docker-compose -f docker-compose.shared-net.yml restart
+docker compose -f docker-compose.shared-net.yml restart
 
 # Access container shell
 docker exec -it trailbase sh
 
 # Update to latest version
-docker-compose -f docker-compose.shared-net.yml pull
-docker-compose -f docker-compose.shared-net.yml up -d
+docker compose -f docker-compose.shared-net.yml pull
+docker compose -f docker-compose.shared-net.yml up -d
 ```
 
 ## Health Check
@@ -192,7 +217,9 @@ sudo chown -R 1000:1000 /mnt/backblaze/trailbase
 ### Container Won't Start
 Check logs:
 ```bash
-docker-compose -f docker-compose.shared-net.yml logs trail
+./manage-trailbase.sh logs
+# or
+docker compose -f docker-compose.shared-net.yml logs trail
 ```
 
 Common issues:

@@ -45,6 +45,8 @@
   built-in WebAssembly runtime, SSR, auth and admin UI.
 </p>
 
+> **Note**: This repository contains enhanced documentation and development tools for TrailBase. The original project is available at [trailbaseio/trailbase](https://github.com/trailbaseio/trailbase).
+
 ## ✨ Features
 
 - **🚀 Single Binary Deployment** - Everything compiled into one executable with embedded assets
@@ -332,12 +334,23 @@ The OSL-3.0 is a copyleft license with a narrower definition of "derivative work
 
 ## 🙏 Acknowledgments
 
+This project is based on [TrailBase](https://github.com/trailbaseio/trailbase) by the TrailBase team.
+
+**Original Project**: https://github.com/trailbaseio/trailbase
+
+TrailBase is an open-source project originally created and maintained by the TrailBase team. This repository contains enhancements to the documentation and development tooling.
+
+**Core Technologies Used**:
 - **SQLite** - For the incredible embedded database engine
 - **Axum** - For the ergonomic web framework
 - **Wasmtime** - For the WebAssembly runtime
 - **SolidJS** - For the reactive admin UI framework
 - **Astro** - For the authentication UI framework
-- All our contributors and supporters
+
+Special thanks to:
+- The TrailBase team for creating this amazing backend-as-a-service solution
+- All contributors to the original TrailBase project
+- The open-source community for the tools and libraries that make TrailBase possible
 
 ## 🔗 Links
 

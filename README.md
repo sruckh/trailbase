@@ -6,18 +6,7 @@
   </a>
 </p>
 
-<p align="center">
-  An open, <a href="https://trailbase.io/reference/benchmarks/">blazingly fast</a>,
-  single-executable Firebase alternative with type-safe REST & realtime APIs, built-in WebAssembly
-  runtime, SSR, auth and admin UI built on Rust, SQLite & Wasmtime.
-<p>
-
-<p align="center">
-  Simplify with fewer moving parts: an easy to self-host, single-executable,
-  extensible backend for your mobile, web or desktop application.
-  Sub-millisecond latencies eliminate the need for dedicated caches, no more
-  stale or inconsistent data.
-<p>
+<h1 align="center">TrailBase</h1>
 
 <p align="center">
   <a href="https://github.com/trailbaseio/trailbase/stargazers/">
@@ -32,186 +21,335 @@
   <a href="https://trailbase.io/reference/roadmap/">
     <img src="https://img.shields.io/badge/status-alpha-orange" alt="Status - Alpha">
   </a>
-</p>
-
-# TrailBase
-
-<p align="center">
-  <a
-    href="https://demo.trailbase.io/_/admin?loginMessage=E-mail:%20admin@localhost%20%E2%80%A2%20Password:%20secret"
-    target="_blank"
-  >
-    <picture>
-      <img alt="Admin UI" width="600" src="docs/src/assets/shelve.webp" />
-    </picture>
+  <a href="https://crates.io/crates/trailbase">
+    <img src="https://img.shields.io/crates/v/trailbase.svg" alt="Crates.io">
+  </a>
+  <a href="https://www.npmjs.com/package/trailbase">
+    <img src="https://img.shields.io/npm/v/trailbase.svg" alt="NPM">
   </a>
 </p>
 
 <p align="center">
-  <strong>
-    Try the
-    <a href="https://demo.trailbase.io/_/admin?loginMessage=E-mail:%20admin@localhost%20%E2%80%A2%20Password:%20secret" target="_blank">
-      demo
-    </a> online
-  </strong>
-  <br/>Email: <em>admin@localhost</em>
-  <br/>password: <em>secret</em>
+  <strong>An open, <a href="https://trailbase.io/reference/benchmarks/">blazingly fast</a>, single-executable Firebase alternative</strong>
 </p>
 
-For more context, documentation, and a live demo, check out the website:
-[trailbase.io](https://trailbase.io).
-Questions? Thoughts? - Take a look at the
-[FAQ](https://trailbase.io/reference/faq/) or reach out.
-If you like TrailBase or want to follow along, consider leaving a ⭐🙏.
+<p align="center">
+  Simplify with fewer moving parts: an easy to self-host, single-executable,
+  extensible backend for your mobile, web or desktop application.
+  Sub-millisecond latencies eliminate the need for dedicated caches, no more
+  stale or inconsistent data.
+</p>
 
-## Project Structure & Releases
+<p align="center">
+  Built on Rust, SQLite & Wasmtime with type-safe REST & realtime APIs,
+  built-in WebAssembly runtime, SSR, auth and admin UI.
+</p>
 
-This repository contains all components that make up TrailBase including the
-server, client libraries, tests, documentation and examples.
-Only the [benchmarks](https://github.com/trailbaseio/trailbase-benchmark) are
-kept separately due to their external dependencies.
+## ✨ Features
 
-Pre-built binaries are available as
-[GitHub releases](https://github.com/trailbaseio/trailbase/releases/) for
-Linux, MacOS and Windows or [Docker images](https://hub.docker.com/r/trailbase/trailbase).
+- **🚀 Single Binary Deployment** - Everything compiled into one executable with embedded assets
+- **⚡ Sub-millisecond Latencies** - SQLite-powered with optimized query execution
+- **🔒 Built-in Authentication** - JWT-based auth with OAuth 2.0 providers (Google, GitHub, Apple, etc.)
+- **📊 Auto-generated APIs** - Type-safe REST APIs automatically generated from database schemas
+- **🔄 Real-time Subscriptions** - Server-sent events for live data updates
+- **🎛️ Admin Dashboard** - Web-based admin interface for database management
+- **🧩 WebAssembly Runtime** - Extensible backend using Wasmtime for custom logic
+- **📁 File Management** - Built-in file upload and storage system
+- **🌐 Multi-language Clients** - TypeScript, Rust, Python, Go, Swift, C#, Kotlin, Dart
+- **📧 Email Integration** - Transactional email support for authentication flows
 
-Client packages for various languages are available via:
+## 🏗️ Architecture
 
-- [JavaScript/TypeScript](https://www.npmjs.com/package/trailbase)
-- [Dart/Flutter](https://pub.dev/packages/trailbase)
-- [Rust](https://crates.io/crates/trailbase-client)
-- [C#/.Net](https://www.nuget.org/packages/TrailBase/)
-- [Swift](https://github.com/trailbaseio/trailbase/tree/main/client/swift/trailbase)
-- [Kotlin](https://mvnrepository.com/artifact/io.trailbase/trailbase-client)
-- [Go](https://github.com/trailbaseio/trailbase/tree/main/client/go/trailbase)
-- [Python](https://pypi.org/project/trailbase/)
+![Architecture Diagram](./docs/diagrams/architecture.svg)
 
-## Getting Started
+TrailBase follows a modular architecture built around a high-performance Rust core:
 
-TrailBase is a **single executable** and therefore very easy to
-[deploy](https://trailbase.io/getting-started/install/).
-You can simply download the appropriate pre-built
-[GitHub release](https://github.com/trailbaseio/trailbase/releases/) bundle for
-your system (MacOS, Linux or Windows), unpack and run the executable w/o having
-to worry about dependencies or shared-library skew.
+- **Core Server** (`crates/core/`) - HTTP server using Axum, SQLite database, authentication, and admin APIs
+- **Admin Dashboard** (`crates/assets/js/admin/`) - SolidJS-based SPA for database management
+- **Auth UI** (`crates/auth-ui/`) - Astro-based authentication interface
+- **WebAssembly Runtime** - Wasmtime-based execution environment for custom components
+- **Client Libraries** - Type-safe clients in 8+ programming languages
 
-If you want to get started even quicker, install TrailBase with the following
-command:
+### Data Flow
 
-```sh
-# Linux & MacOS
+![Data Flow Diagram](./docs/diagrams/data_flow.svg)
+
+The typical request flow through TrailBase:
+
+1. **Client Request** - HTTP request from any client application
+2. **Authentication** - JWT validation and OAuth provider integration
+3. **API Routing** - Request routing to appropriate API handler
+4. **Business Logic** - Core API processing with optional WASM execution
+5. **Data Layer** - SQLite database operations and file storage
+6. **Response** - JSON response or SSE stream for real-time updates
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Rust 1.90.0+ (for building from source)
+- Node.js and pnpm (for UI development)
+- Protobuf compiler (protoc)
+
+### Installation
+
+#### Option 1: Pre-built Binary (Recommended)
+
+```bash
+# Linux & macOS
 curl -sSL https://trailbase.io/install.sh | bash
 
 # Windows
 iwr https://trailbase.io/install.ps1 | iex
 ```
 
-Alternatively, run TrailBase using the Docker image:
+#### Option 2: Docker
 
-```sh
-alias trail='
-  mkdir -p traildepot && \
-  docker run \
-      -p 4000:4000 \
-      -e ADDRESS=0.0.0.0:4000 \
-      --mount type=bind,source="$PWD"/traildepot,target=/app/traildepot \
-      trailbase/trailbase /app/trail'
+```bash
+# Create data directory
+mkdir -p traildepot
+
+# Run TrailBase
+docker run \
+  -p 4000:4000 \
+  -e ADDRESS=0.0.0.0:4000 \
+  --mount type=bind,source="$PWD"/traildepot,target=/app/traildepot \
+  trailbase/trailbase /app/trail
 ```
 
-Then execute `trail help` to check that it is properly installed and list all
-available command line options.
+#### Option 3: Build from Source
 
-To bring up the server on `localhost:4000`, run:
+```bash
+# Clone the repository
+git clone --recursive https://github.com/trailbaseio/trailbase.git
+cd trailbase
 
-```sh
-trail run
-```
-
-On first start, a `./traildepot` folder will be bootstrapped, an admin user
-created and their credentials printed to the terminal.
-Afterwards open [http://localhost:4000/\_/admin/](http://localhost:4000/_/admin/)
-in your browser and use the credentials to log into the admin dashboard.
-
-If you want to install the auth UI, you can simply run:
-
-```sh
-trail components add trailbase/auth_ui
-```
-
-, which will add a WASM component in `./traildepot/wasm` exposing additional UI
-endpoints, e.g.
-[http://localhost:4000/\_/auth/login](http://localhost:4000/_/auth/login).
-
-## Building
-
-If you have all the necessary build dependencies (Rust, protobuf, node.js,
-pnpm) installed, you can build TrailBase by running:
-
-```sh
-# Windows only: make sure to enable symlinks (w/o `mklink` permissions for your
-# user, git will fall back to copies).
-git config core.symlinks true && git reset --hard
-
-# Download necessary git sub-modules.
-git submodule update --init --recursive
-
-# Install Javascript dependencies first. Required for the next step.
+# Install dependencies
 pnpm install
-
-# Build the executable. Adding `--release` will yield a more optimized binary
-# but slow builds significantly.
-cargo build --bin trail
-```
-
-Alternatively, if you want to build a Docker image or don't want to deal with
-build dependencies, you can simply run:
-
-```sh
-# Download necessary git sub-modules.
 git submodule update --init --recursive
 
-# Build the container as defined in `Dockerfile`.
-docker build . -t trailbase
+# Build the binary
+cargo build --bin trail --release
+
+# Run the server
+./target/release/trail run
 ```
 
-## Contributing
+### Basic Usage
 
-Contributions are very much appreciated 🙏. For anything beyond bug fixes,
-let's briefly chat to see how a proposal fits into the overall roadmap and
-avoid any surprises.
+```bash
+# Start the server
+trail run
 
-We're not sure yet what the best setup or exact license is for compatibility
-between OSL-3.0 and more popular licenses or use as a framework.
-So we'd ask you to sign a simple CLA that retains your copyright, ensures that
-TrailBase will continue to forever be freely available under an OSI-approved
-copyleft license, while allowing for some flexibility and sub-licensing as
-established by much larger, successful projects such as Grafana or Element.
+# Start in development mode (permissive CORS)
+trail run --dev
 
-## License
+# Add authentication UI
+trail components add trailbase/auth_ui
 
-TrailBase is free software under the terms of the [Open Software License 3.0
-(OSL-3.0)](https://opensource.org/licenses/OSL-3.0).
+# Generate API schema
+trail schema users --mode select
 
-We chose the OSL-3.0 over other, better known copyleft licenses due to its
-narrower definition of "derivative work" that **only** covers modifications to
-TrailBase itself.
-This means that your application's original code is **not** subject to the
-OSL-3.0's copyleft provisions. This is true whether you connect over the
-network (e.g. web, mobile, other services, etc.), you're serving static assets,
-using the runtime to write custom server-side logic or using TrailBase as a
-framework.
+# Generate OpenAPI specification
+trail openapi print > openapi.json
+```
 
-This limited scope is similar to the GPL's classpath or the LGPL's [linking
-exception](https://en.wikipedia.org/wiki/GPL_linking_exception).
-The goal is to allow building on top and around of TrailBase without any
-provisions rubbing off onto your original work, while making sure that fixes
-and improvements find their way back to the community.
-These are our intentions - we felt the need to spell them out explicitly
-because licensing is tricky and we ain't lawyers.
-Graciously, the license's author provides some more
-[explanations](https://rosenlaw.com/OSL3.0-explained.htm).
-If you have any concerns, please reach out.
+### First Steps
 
-If you require an
-[exception](https://www.gnu.org/philosophy/selling-exceptions.html), reach out
-to contact@trailbase.io.
+1. **Start TrailBase**: `trail run`
+2. **Access Admin UI**: Open http://localhost:4000/_/admin
+3. **Default Credentials**: Check terminal output for auto-generated admin credentials
+4. **Create Tables**: Use the admin UI or SQL migrations
+5. **Generate APIs**: APIs are automatically created from your tables
+6. **Connect Clients**: Use any of the supported client libraries
+
+## 📖 Documentation
+
+### API Reference
+
+TrailBase automatically generates REST APIs from your database tables. For example:
+
+```bash
+# List all records
+GET /api/v1/records/users
+
+# Create a new record
+POST /api/v1/records/users
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+# Real-time subscriptions
+GET /api/v1/records/users?subscribe=true
+```
+
+### Configuration
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ADDRESS` | Server bind address | `127.0.0.1:4000` |
+| `DATA_DIR` | Runtime data directory | `./traildepot` |
+| `JWT_SECRET` | JWT signing secret | Auto-generated |
+| `LOG_LEVEL` | Logging level | `info` |
+| `CORS_ORIGINS` | Allowed CORS origins | `*` in dev mode |
+
+### Database Migrations
+
+```bash
+# Create a new migration
+trail migrate create create_users_table
+
+# Run migrations
+trail migrate up
+
+# Check migration status
+trail migrate status
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+cargo test
+
+# Run specific package tests
+cargo test --package trailbase-core
+cargo test --package trailbase-client
+
+# Run frontend tests
+cd crates/assets/js/admin && pnpm run test
+
+# Run full project check
+make check
+```
+
+## 💻 Client Libraries
+
+### TypeScript/JavaScript
+
+```bash
+npm install trailbase
+```
+
+```typescript
+import { TrailBaseClient } from 'trailbase';
+
+const client = new TrailBaseClient('http://localhost:4000');
+const users = await client.list('users');
+```
+
+### Rust
+
+```bash
+cargo add trailbase-client
+```
+
+```rust
+use trailbase_client::TrailBaseClient;
+
+let client = TrailBaseClient::new("http://localhost:4000")?;
+let users = client.list("users").await?;
+```
+
+### Python
+
+```bash
+pip install trailbase
+```
+
+```python
+from trailbase import TrailBaseClient
+
+client = TrailBaseClient('http://localhost:4000')
+users = client.list('users')
+```
+
+For other languages, see the [client documentation](https://trailbase.io/reference/clients/).
+
+## 🔧 Development
+
+### Setting up Development Environment
+
+```bash
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install pnpm
+curl -fsSL https://get.pnpm.io/install.sh | sh
+
+# Clone with submodules
+git clone --recursive https://github.com/trailbaseio/trailbase.git
+cd trailbase
+
+# Install dependencies
+pnpm install
+git submodule update --init --recursive
+```
+
+### Development Workflow
+
+```bash
+# Start server in development mode
+cargo run -- --data-dir client/testfixture run --dev
+
+# Admin UI development
+cd crates/assets/js/admin
+pnpm run dev
+
+# Format all code
+make format
+
+# Check all code
+make check
+
+# Build release binary
+make static
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow the existing code style (enforced by `make format`)
+- Add tests for new functionality
+- Update documentation as needed
+- Ensure all checks pass (`make check`)
+
+## 📄 License
+
+TrailBase is free software under the terms of the [Open Software License 3.0 (OSL-3.0)](LICENSE).
+
+The OSL-3.0 is a copyleft license with a narrower definition of "derivative work" that only covers modifications to TrailBase itself. This means your application's original code is not subject to the OSL-3.0's copyleft provisions when using TrailBase.
+
+## 🙏 Acknowledgments
+
+- **SQLite** - For the incredible embedded database engine
+- **Axum** - For the ergonomic web framework
+- **Wasmtime** - For the WebAssembly runtime
+- **SolidJS** - For the reactive admin UI framework
+- **Astro** - For the authentication UI framework
+- All our contributors and supporters
+
+## 🔗 Links
+
+- [Website](https://trailbase.io)
+- [Documentation](https://trailbase.io/reference/)
+- [Demo](https://demo.trailbase.io/_/admin) (Email: `admin@localhost`, Password: `secret`)
+- [FAQ](https://trailbase.io/reference/faq/)
+- [Discord Community](https://discord.gg/trailbase)
+- [Twitter/X](https://twitter.com/trailbaseio)
+
+---
+
+<p align="center">
+  <strong>If you like TrailBase or want to follow along, consider leaving a ⭐🙏</strong>
+</p>
